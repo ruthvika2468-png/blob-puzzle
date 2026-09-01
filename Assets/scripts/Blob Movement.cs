@@ -7,20 +7,25 @@ public class BlobMovement : MonoBehaviour
 
     void Update()
     {
-        Vector3 movement = Vector3.zero;
+        Vector2 input = Vector2.zero;
 
-        if (Keyboard.current.wKey.isPressed)
-            movement += Vector3.forward;
+        if (Keyboard.current != null)
+        {
+            if (Keyboard.current.wKey.isPressed)
+                input.y += 1;
 
-        if (Keyboard.current.sKey.isPressed)
-            movement += Vector3.back;
+            if (Keyboard.current.sKey.isPressed)
+                input.y -= 1;
 
-        if (Keyboard.current.aKey.isPressed)
-            movement += Vector3.left;
+            if (Keyboard.current.aKey.isPressed)
+                input.x -= 1;
 
-        if (Keyboard.current.dKey.isPressed)
-            movement += Vector3.right;
+            if (Keyboard.current.dKey.isPressed)
+                input.x += 1;
+        }
 
-        transform.Translate(movement.normalized * speed * Time.deltaTime);
+        Vector3 movement = new Vector3(input.x, 0, input.y);
+
+        transform.position += movement * speed * Time.deltaTime;
     }
 }
